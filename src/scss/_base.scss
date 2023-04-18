@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  z-index: inherit;
+}
+
+html {
+  height: 100%;
+  width: 100%; 
+  scroll-behavior: smooth;
+  background-color: $off-white-color;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', Times, serif; 
+  background-color: $grey-color; 
+  max-width: 960px;
+  margin: 0 auto;
+  height: 100%;
+  z-index: -1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+a {
+  color: $navy-color;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: $tangerine-color;
+}

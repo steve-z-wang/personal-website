@@ -1,0 +1,17 @@
+{
+  "name": "personal-website",
+  "version": "1.0.0",
+  "description": "Steve Wang's Personal Website",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "browser-sync start --server dist --files 'dist/*.html, dist/css/*.css, src/js/*.js'",
+    "sass": "sass --watch ./src/scss:./dist/css" 
+  },
+  "author": "Steve Wang",
+  "license": "MIT",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0",
+    "sass": "^1.62.0"
+  }
+}
