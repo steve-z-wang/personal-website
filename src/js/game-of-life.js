@@ -1,4 +1,11 @@
-class GameOfLife {
+import patternsText from "../assets/patterns.txt";
+
+export async function loadPatterns() {
+  const text = patternsText;
+  return text.split("\n\n").map((pattern) => pattern.split("\n"));
+}
+
+export class GameOfLife {
   constructor(
     canvas,
     cellSize = 6,
@@ -146,25 +153,3 @@ class GameOfLife {
     setTimeout(() => requestAnimationFrame(() => this.loop()), 1000 / this.fps);
   }
 }
-
-async function loadPatterns() {
-  const response = await fetch("patterns.txt");
-  const text = await response.text();
-  return text.split("\n\n").map((pattern) => pattern.split("\n"));
-}
-
-(async () => {
-  const header = document.querySelector("header");
-  const canvas = document.getElementById("game-of-life");
-  canvas.width = header.clientWidth;
-  canvas.height = header.clientHeight;
-
-  const patterns = await loadPatterns();
-  const randomPattern = patterns[Math.floor(Math.random() * patterns.length)];
-
-  const game = new GameOfLife(canvas);
-  game.setPattern(randomPattern);
-  game.loop();
-
-  canvas.addEventListener("click", (event) => game.toggleCell(event));
-})();

@@ -1,122 +1,117 @@
 .container {
   position: relative;
-  height: 100%;
+  margin: 0 0.66rem;
   display: flex;
   flex-direction: column;
-  margin: 0 10px;
-  background-color: $off-white-color;
+  height: 100vh;
   z-index: 10;
-}
-
-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-}
-
-/* Header styles */
-header {
-  background-color: rgba($off-white-color, $container-bg-transparency);
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 0 10px 0 rgba($navy-color, $border-transparency);
-}
-
-.header-upper {
-  display: flex;
+  background-color: $off-white-color;
   justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-}
 
-.header-upper h1 {
-  text-align: left;
-}
+  header {
+    display: flex;
+    flex-direction: column;
+    box-shadow: $box-shadow-10px;
 
-.header-upper h1 span {
-  display: block;
-}
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
-.social-media {
-  display: flex;
-  gap: 0.5rem;
-}
-.social-media a {
-  text-decoration: none;
-  color: $navy-color;
-}
+    .header-upper {
+      display: flex;
+      background-color: rgba($off-white-color, $container-bg-transparency);
 
-.header-lower {
-  position: sticky;
-  top: 0;
-  display: flex;
-  padding:  0 20px;
-}
+      a {
+        margin-top: 1.3rem;
+        margin-left: 2rem;
+        margin-bottom: 1.3rem;
+        h1 {
+          text-align: left;
+          line-height: 1;
 
-.header-lower ul {
-  display: flex;
-  padding: 10px 0;
-  justify-content: center;
-  width: 100%;
+          span {
+            display: block;
+          }
+        }
+      }
+    }
 
-  background-color: $off-white-color;
-  border-top: 2px solid $grey-color;
-}
+    .header-lower {
+      background-color: $off-white-color;
 
-.header-lower ul li {
-  margin: 0 10px;
-}
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.1rem solid $grey-color;
+        margin: 0 1rem;
 
-.header-lower ul li a {
-  display: block;
-  padding: 10px 20px;
-  color: $navy-color;
-  text-decoration: none;
-  font-weight: 600;
-}
+        .nav-menu {
+          display: flex;
+          align-items: center;
+          margin: 0.3rem 0;
 
-.header-lower ul li a:hover {
-  background-color: $off-white-color;
-  transform: scale(1.25);
-  transition: background-color 0.3s, transform 0.3s;
-  box-shadow: 0 0 10px rgba($navy-color, $border-transparency);
-}
+          li a {
+            width: 6rem;
+            height: 3rem;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.3rem;
+            font-weight: 600;
 
-/* Main */
-main {
-  margin: auto;
-  padding: 20px;
-  width: 640px;
-  height: 480px;
-  background-color: rgba($off-white-color, $container-bg-transparency);
-  box-shadow: 0 0 10px 0 rgba($navy-color, $border-transparency);
-}
+            &:hover {
+              background-color: $off-white-color;
+              transform: scale(1.05);
+              transition: background-color 0.3s, transform 0.3s;
+              box-shadow: $box-shadow-5px;
+            }
+          }
+        }
 
-/* Sections styles */
-section {
-  padding: 40px 0;
-  position: relative;
-}
+        .social-icons {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
 
-/* Footer styles */
-footer {
-  position: relative;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100px;
-  background-color: $navy-color;
-  color: $off-white-color;
-  box-shadow: 0 0 10px 0 rgba($navy-color, $border-transparency);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  main {
+    display: flex;
+    position: relative;
+    margin: 3rem 3rem;
+    box-shadow: $box-shadow-10px;
+    align-items: center;
 
-footer p {
-  background-color: $off-white-color;
-  color: $navy-color;
-  margin: 0;
-  padding: 10px;
+    height: 400px;
+
+    img {
+      height: 100%;
+    }
+
+    section {
+      padding: 1rem;
+    }
+  }
+
+  footer {
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: $navy-color;
+    box-shadow: $box-shadow-10px;
+
+    p {
+      color: $off-white-color;
+      margin: 1.5rem 0;
+    }
+  }
 }
