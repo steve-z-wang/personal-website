@@ -1,47 +1,76 @@
 import patternsText from "../assets/patterns.txt";
 
-export async function loadPatterns() {
+async function loadPatterns() {
   const text = patternsText;
   return text.split("\n\n").map((pattern) => pattern.split("\n"));
 }
 
-export class GameOfLife {
-  constructor(
-    canvas,
-    cellSize = 6,
-    fps = 10,
-    margin = 1,
-    borderWidth = 1,
-    underpopulation = 2,
-    overpopulation = 3,
-    reproduction = 3
-  ) {
+export async function initGameOfLife() {
+  try {
+    const container = document.querySelector(".container");
+    const canvas = document.getElementById("game-of-life");
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+
+    const patterns = await loadPatterns();
+    const randomPattern = patterns[Math.floor(Math.random() * patterns.length)];
+
+    const game = new GameOfLife(canvas);
+    game.setPattern(randomPattern);
+    game.loop();
+
+    canvas.addEventListener("click", (event) => game.toggleCell(event));
+
+    window.addEventListener("resize", () => {
+      canvas.width = container.clientWidth;
+      canvas.height = container.clientHeight;
+      game.draw();
+    });
+  } catch (error) {
+    console.error("Error initializing the Game of Life:", error);
+  }
+}
+
+class GameOfLife {
+  constructor(canvas, cellSize = 6, fps = 10, margin = 1, borderWidth = 1) {
     Object.assign(this, {
       canvas,
       cellSize,
       fps,
       margin,
       borderWidth,
-      underpopulation,
-      overpopulation,
-      reproduction,
     });
     this.ctx = canvas.getContext("2d");
     this.contentSize = this.cellSize + 2 * this.margin;
     this.grid = new Map();
-    this.offsetX = 0;
-    this.offsetY = 0;
+    this.maxCanvasX = Math.floor(canvas.width / this.contentSize) + 1;
+    this.maxCanvasY = Math.floor(canvas.height / this.contentSize) + 1;
+
+    this.neighbors = [
+      [-1, -1],
+      [-1, 0],
+      [-1, 1],
+      [0, -1],
+      [0, 1],
+      [1, -1],
+      [1, 0],
+      [1, 1],
+    ];
+  }
+
+  getCellKey(y, x) {
+    return `${y},${x}`;
   }
 
   setCell(y, x, value) {
-    const key = `${y},${x}`;
+    const key = this.getCellKey(y, x);
     value ? this.grid.set(key, true) : this.grid.delete(key);
   }
 
   draw() {
     const { ctx, canvas, contentSize, grid, margin, cellSize, borderWidth } =
       this;
-    ctx.fillStyle = "rgba(245, 245, 245, 0.2)";
+    ctx.fillStyle = "rgba(249, 249, 249, 0.20)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     for (const [key] of grid) {
@@ -54,7 +83,7 @@ export class GameOfLife {
         cellSize
       );
 
-      ctx.strokeStyle = "202a44";
+      ctx.strokeStyle = "#202a44";
       ctx.lineWidth = borderWidth;
       ctx.strokeRect(
         x * contentSize + margin + 0.5,
@@ -66,66 +95,50 @@ export class GameOfLife {
   }
 
   step() {
-    const { grid, underpopulation, overpopulation, reproduction } = this;
+    const { grid, canvas, contentSize } = this;
     const newGrid = new Map();
     const cellsToCheck = new Set([...grid.keys()]);
-    const neighbors = [
-      [-1, -1],
-      [-1, 0],
-      [-1, 1],
-      [0, -1],
-      [0, 1],
-      [1, -1],
-      [1, 0],
-      [1, 1],
-    ];
+    const checkedCells = new Set();
 
-    for (const [key] of grid) {
+    for (const key of cellsToCheck) {
       const [y, x] = key.split(",").map(Number);
       const aliveNeighbors = this.getAliveNeighbors(y, x);
+      checkedCells.add(key);
 
-      if (
-        aliveNeighbors >= underpopulation &&
-        aliveNeighbors <= overpopulation
-      ) {
+      if (grid.has(key) && aliveNeighbors >= 2 && aliveNeighbors <= 3) {
         newGrid.set(key, true);
       }
 
-      neighbors.forEach(([dy, dx]) => {
-        cellsToCheck.add(`${y + dy},${x + dx}`);
-      });
-    }
+      this.neighbors.forEach(([dy, dx]) => {
+        const neighborY = (y + dy + this.maxCanvasY) % this.maxCanvasY;
+        const neighborX = (x + dx + this.maxCanvasX) % this.maxCanvasX;
+        const neighborKey = this.getCellKey(neighborY, neighborX);
 
-    for (const key of cellsToCheck) {
-      if (!grid.has(key)) {
-        const [y, x] = key.split(",").map(Number);
-        const aliveNeighbors = this.getAliveNeighbors(y, x);
+        if (!checkedCells.has(neighborKey)) {
+          const neighborAliveNeighbors = this.getAliveNeighbors(
+            neighborY,
+            neighborX
+          );
+          checkedCells.add(neighborKey);
 
-        if (aliveNeighbors === reproduction) {
-          newGrid.set(key, true);
+          if (!grid.has(neighborKey) && neighborAliveNeighbors === 3) {
+            newGrid.set(neighborKey, true);
+          }
         }
-      }
+      });
     }
 
     this.grid = newGrid;
   }
 
   getAliveNeighbors(y, x) {
-    const neighbors = [
-      [-1, -1],
-      [-1, 0],
-      [-1, 1],
-      [0, -1],
-      [0, 1],
-      [1, -1],
-      [1, 0],
-      [1, 1],
-    ];
-    return neighbors.reduce(
-      (count, [dy, dx]) =>
-        count + (this.grid.has(`${y + dy},${x + dx}`) ? 1 : 0),
-      0
-    );
+    return this.neighbors.reduce((count, [dy, dx]) => {
+      const neighborY = (y + dy + this.maxCanvasY) % this.maxCanvasY;
+      const neighborX = (x + dx + this.maxCanvasX) % this.maxCanvasX;
+      return (
+        count + (this.grid.has(this.getCellKey(neighborY, neighborX)) ? 1 : 0)
+      );
+    }, 0);
   }
 
   setPattern(pattern) {
@@ -133,7 +146,7 @@ export class GameOfLife {
     for (let y = 0; y < pattern.length; y++) {
       for (let x = 0; x < pattern[y].length; x++) {
         if (pattern[y][x] === "#") {
-          this.setCell(y + this.offsetY, x + this.offsetX, true);
+          this.setCell(y, x, true);
         }
       }
     }
@@ -143,7 +156,7 @@ export class GameOfLife {
     const rect = this.canvas.getBoundingClientRect();
     const x = Math.floor((event.clientX - rect.left) / this.contentSize);
     const y = Math.floor((event.clientY - rect.top) / this.contentSize);
-    this.setCell(y, x, !this.grid.has(`${y},${x}`));
+    this.setCell(y, x, !this.grid.has(this.getCellKey(y, x)));
     this.draw();
   }
 

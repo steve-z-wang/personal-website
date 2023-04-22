@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "start": "npx webpack serve --open"
+    "start": "webpack serve --open", 
+    "clean": "rm -rf dist" 
   },
   "author": "Steve Wang",
   "license": "MIT",
@@ -27,6 +28,8 @@
     "webpack-dev-server": "^4.13.3"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.4.0"
+    "@fortawesome/fontawesome-free": "^6.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

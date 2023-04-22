@@ -1,4 +1,17 @@
-// src/scss/main.scss
-@import "variables";
-@import "base";
-@import "layout";
+// import awesome font  
+@import "../../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+
+// import custom scss  
+@import "utils/variables";
+@import "utils/mixins";
+
+@import "base/reset";
+@import "base/typography";
+@import "base/base";
+
+@import "components/logo";
+@import "components/card";
+
+@import "layout/general-layout"; 
+@import "layout/header";
+@import "layout/footer";

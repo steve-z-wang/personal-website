@@ -5,55 +5,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steve Wang - Personal Profile</title>
-<script defer src="bundlefbfdd493130efcb4e868.js"></script></head>
+<script defer src="/bundle81ae789163ad7eb4106b.js"></script></head>
 
 <body>
+    <canvas id="game-of-life"></canvas>
     <div class="container">
-        <canvas id="game-of-life"></canvas>
-
-        <header>
+        <header id="header">
             <div class="header-upper">
-                <a href="index.html">
+                <a href="index.html" id="website-logo">
                     <h1>
                         <span>Steve's</span>
+                        <span>Digital</span>
                         <span>Portfolio</span>
-                        <span>Website</span>
                     </h1>
                 </a>
-
             </div>
-            <nav class="header-lower">
-                <div class="nav-container">
-                    <ul class="nav-menu">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="services.html">Projects</a></li>
-                        <li><a href="contact.html">Art</a></li>
-                    </ul>
 
-                    <ul class="social-icons">
-                        <li><a href=""><i class="fab fa-github"></i></a></li>
-                        <li><a href=""><i class="fab fa-instagram"></i></a></li>
-                        <li><a href=""><i class="fab fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
+            <hr/>
+
+            <nav class="header-lower">
+                <ul class="nav-menu">
+                    <li><a href="" id='nav-home' class="nav-link">Home</a></li>
+                    <li><a href="" id='nav-proj' class="nav-link">Projects</a></li>
+                    <li><a href="" id='nav-arts' class="nav-link">Arts</a></li>
+                    <li><a href="./assets/steve-wang-resume.pdf" target="_blank" class="nav-link">Résumé</a></li>
+                </ul>
+
+                <div></div>
+
+                <ul class="social-icons">
+                    <li><a href=""><i class="fab fa-github"></i></a></li>
+                    <li><a href=""><i class="fab fa-instagram"></i></a></li>
+                    <li><a href=""><i class="fab fa-linkedin"></i></a></li>
+                </ul>
             </nav>
         </header>
 
-        <main>
-            <img src="de6108e78df0533ea5ec.jpg" alt="A photo of myself" />
-            <section id="about">
-                <p>Hi, I'm Steve Wang, a Mathematics & Computer Science student at Emory University. I have a strong
-                    passion for programming, machine learning, and health informatics. I'm always eager to learn and
-                    take on new challenges in the tech industry.</p>
-            </section>
-        </main>
+        <!-- Content Dynamically Loaded -->
+        <main id="main-content"></main>
 
         <footer>
-            <p>&copy; Steve Wang. All rights reserved.</p>
+            <div class="layover">
+                <p>&copy; Steve Wang. All rights reserved.</p>
+            </div>
         </footer>
 
-    </div>
+        <script src="/95ed8b67749d4307f2d6.js"></script>
 
+    </div>
 </body>
 
 </html>

@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  scroll-behavior: smooth;
+  background-color: $white-color;
+}
+
+body {
+  max-width: 960px;
+  min-height: 100%;
+  margin: 0 auto;
+  color: $navy-color;
+  font-family: $font-primary;
+}

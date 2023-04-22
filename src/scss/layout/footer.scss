@@ -1,0 +1,17 @@
+footer {
+  padding-top: 1.25rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    background-color: $navy-color;
+
+    p {
+      color: $white-color;
+    }
+  }
+}

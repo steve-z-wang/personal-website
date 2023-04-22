@@ -1,0 +1,11 @@
+#website-logo {
+  h1 {
+    font-family: $font-secondary;
+    color: $indigo-color;
+    text-align: left;
+    line-height: 1;
+    span {
+      display: block;
+    }
+  }
+}

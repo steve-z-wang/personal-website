@@ -1,26 +1,31 @@
+// import scss
 import "./scss/main.scss";
-import "@fortawesome/fontawesome-free/js/fontawesome.js";
-import "@fortawesome/fontawesome-free/js/brands.js";
+import resume from "./assets/steve-wang-resume.pdf";
 
-import { GameOfLife, loadPatterns } from "./js/game-of-life.js";
+// import custom js
+import { initGameOfLife } from "./js/game-of-life.js";
+// import "./js/underline.js";
 
-(async () => {
-  const container = document.querySelector(".header-upper");
-  const canvas = document.getElementById("game-of-life");
-  canvas.width = container.clientWidth;
-  canvas.height = container.clientHeight;
+// import html module
+import home from "./pages/home.html";
+import arts from "./pages/arts.html";
+import projects from "./pages/projects.html";
 
-  const patterns = await loadPatterns();
-  const randomPattern = patterns[Math.floor(Math.random() * patterns.length)];
-
-  const game = new GameOfLife(canvas);
-  game.setPattern(randomPattern);
-  game.loop();
-
-  canvas.addEventListener("click", (event) => game.toggleCell(event));
-
-  window.addEventListener("resize", () => {
-    canvas.width = container.clientWidth;
-    canvas.height = container.clientHeight;
+function attachEventListener(selector, content) {
+  document.querySelector(selector).addEventListener("click", (e) => {
+    e.preventDefault();
+    loadContent(content);
   });
-})();
+}
+
+function loadContent(content) {
+  const mainContent = document.querySelector("#main-content");
+  mainContent.innerHTML = content;
+}
+
+attachEventListener("#nav-arts", arts);
+attachEventListener("#nav-home", home);
+attachEventListener("#nav-proj", projects);
+
+loadContent(home);
+initGameOfLife();

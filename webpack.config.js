@@ -11,7 +11,6 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle[contenthash].js",
     publicPath: "/",
-    clean: true,
   },
   devServer: {
     compress: true,
@@ -25,23 +24,32 @@ module.exports = {
         use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
+        test: /\.html$/,
+        use: "html-loader",
+      },
+      {
         test: /\.txt$/,
         type: "asset/source",
       },
       {
-        test: /\.html$/,
-        use: ["html-loader"],
-      },
-      {
         test: /\.(png|jpe?g|gif)$/i,
         type: "asset",
+        generator: {
+          filename: "assets/[name][ext][query]",
+        },
       },
+      {
+        test: /\.pdf$/,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/[name][ext][query]",
+        } 
+      }, 
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: "src/template.html",
+      template: "./src/index.html",
     }),
   ],
 };
