@@ -9,8 +9,7 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle[contenthash].js",
-    publicPath: "/",
+    // publicPath: "./",
   },
   devServer: {
     compress: true,
@@ -43,8 +42,8 @@ module.exports = {
         type: "asset/resource",
         generator: {
           filename: "assets/[name][ext][query]",
-        } 
-      }, 
+        },
+      },
     ],
   },
   plugins: [

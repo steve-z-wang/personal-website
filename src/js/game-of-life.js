@@ -12,11 +12,12 @@ export async function initGameOfLife() {
     canvas.width = container.clientWidth;
     canvas.height = container.clientHeight;
 
+    const game = new GameOfLife(canvas);
+
     const patterns = await loadPatterns();
     const randomPattern = patterns[Math.floor(Math.random() * patterns.length)];
-
-    const game = new GameOfLife(canvas);
     game.setPattern(randomPattern);
+
     game.loop();
 
     canvas.addEventListener("click", (event) => game.toggleCell(event));
@@ -32,7 +33,7 @@ export async function initGameOfLife() {
 }
 
 class GameOfLife {
-  constructor(canvas, cellSize = 6, fps = 10, margin = 1, borderWidth = 1) {
+  constructor(canvas, cellSize = 10, fps = 10, margin = 1, borderWidth = 1) {
     Object.assign(this, {
       canvas,
       cellSize,
@@ -70,12 +71,12 @@ class GameOfLife {
   draw() {
     const { ctx, canvas, contentSize, grid, margin, cellSize, borderWidth } =
       this;
-    ctx.fillStyle = "rgba(249, 249, 249, 0.20)";
+    ctx.fillStyle = "rgba(249, 249, 249, 0.2)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     for (const [key] of grid) {
       const [y, x] = key.split(",").map(Number);
-      ctx.fillStyle = "#0a50c6";
+      ctx.fillStyle = "rgba(10, 80, 198, 0.5)";
       ctx.fillRect(
         x * contentSize + margin + 0.5,
         y * contentSize + margin + 0.5,
@@ -139,6 +140,17 @@ class GameOfLife {
         count + (this.grid.has(this.getCellKey(neighborY, neighborX)) ? 1 : 0)
       );
     }, 0);
+  }
+
+  randomizeGrid(density = 0.5) {
+    this.grid.clear();
+    for (let y = 0; y < this.maxCanvasY; y++) {
+      for (let x = 0; x < this.maxCanvasX; x++) {
+        if (Math.random() < density) {
+          this.setCell(y, x, true);
+        }
+      }
+    }
   }
 
   setPattern(pattern) {

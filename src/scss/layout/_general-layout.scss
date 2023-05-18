@@ -1,34 +1,27 @@
-body {
-  display: flex;
-  padding: 0 1rem;
-  background-color: $grey-color;
-  z-index: 0;
+canvas {
+  position: fixed;
+  top: 0;
+  z-index: 5;
+  background-color: $off-white-color;
+}
 
-  canvas {
-    position: fixed;
-    top: 0;
-    z-index: 5;
-    background-color: $off-white-color;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+
+  header {
+    background-color: rgba($white-color, $header-bg-transparency);
+    box-shadow: $box-shadow;
+    z-index: 10;
   }
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-
-    header {
-      background-color: rgba($white-color, $header-bg-transparency);
-      box-shadow: $box-shadow;
-      z-index: 10;
-    }
-
-    footer {
-      position: relative;
-      bottom: 0;
-      background-color: $white-color;
-      box-shadow: $box-shadow;
-      z-index: 10;
-    }
+  footer {
+    position: relative;
+    bottom: 0;
+    background-color: $white-color;
+    box-shadow: $box-shadow;
+    z-index: 10;
   }
 }
